@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 2.9)
 project (LINENOISE DESCRIPTION "A shell library")
+enable_testing()
 
 if(CMAKE_BUILD_TYPE)
     message("Building ${CMAKE_BUILD_TYPE} build.")
@@ -31,3 +32,8 @@ target_include_directories(linenoise PUBLIC ".")
 # http://cmake.3232098.n2.nabble.com/Version-in-name-of-shared-library-td7581530.html
 set_target_properties(linenoise PROPERTIES VERSION ${LINENOISE_VERSION_STRING} SOVERSION ${LINENOISE_VERSION_MAJOR})
 set_target_properties(linenoise PROPERTIES LINKER_LANGUAGE C)
+
+add_executable(example example.c)
+target_link_libraries(example linenoise)
+
+add_subdirectory(test)
