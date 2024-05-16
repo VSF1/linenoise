@@ -31,3 +31,17 @@ target_include_directories(linenoise PUBLIC ".")
 # http://cmake.3232098.n2.nabble.com/Version-in-name-of-shared-library-td7581530.html
 set_target_properties(linenoise PROPERTIES VERSION ${LINENOISE_VERSION_STRING} SOVERSION ${LINENOISE_VERSION_MAJOR})
 set_target_properties(linenoise PROPERTIES LINKER_LANGUAGE C)
+
+# create pkg-config files for configuration in non-cmake projects
+configure_file(linenoise.pc.in linenoise.pc @ONLY)
+
+# only offer install option if they compiled with release mode
+if(CMAKE_BUILD_TYPE MATCHES "RELEASE")
+	# adds the 'make install' targets to copy the shared library to /usr/local/lib/ directory
+	install( TARGETS linenoise DESTINATION ${CMAKE_INSTALL_LIBDIR} )
+	# adds all the relevant headers to /usr/local/include/gphoto2pp when ``make install`` is executed
+	install( FILES ${LINENOISE_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/linenoise )
+
+	# install the pkg-config config to system folder
+	install(FILES ${CMAKE_BINARY_DIR}/linenoise.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+endif(CMAKE_BUILD_TYPE MATCHES "RELEASE")
