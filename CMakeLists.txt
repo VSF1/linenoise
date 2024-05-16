@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 2.9)
 project (LINENOISE DESCRIPTION "A shell library")
+enable_testing()
 
 if(CMAKE_BUILD_TYPE)
     message("Building ${CMAKE_BUILD_TYPE} build.")
@@ -45,3 +46,8 @@ if(CMAKE_BUILD_TYPE MATCHES "RELEASE")
 	# install the pkg-config config to system folder
 	install(FILES ${CMAKE_BINARY_DIR}/linenoise.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 endif(CMAKE_BUILD_TYPE MATCHES "RELEASE")
+
+add_executable(example example.c)
+target_link_libraries(example linenoise)
+
+add_subdirectory(test)
