@@ -34,7 +34,7 @@ set_target_properties(linenoise PROPERTIES VERSION ${LINENOISE_VERSION_STRING} S
 set_target_properties(linenoise PROPERTIES LINKER_LANGUAGE C)
 
 # create pkg-config files for configuration in non-cmake projects
-configure_file(linenoise.pc.in linenoise.pc @ONLY)
+# configure_file(linenoise.pc.in linenoise.pc @ONLY)
 
 # only offer install option if they compiled with release mode
 if(CMAKE_BUILD_TYPE MATCHES "RELEASE")
