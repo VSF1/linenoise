@@ -1,5 +1,4 @@
 linenoise_example
 *.dSYM
 history.txt
-*.pc.in
 build/
