@@ -39,12 +39,11 @@ set_target_properties(linenoise PROPERTIES LINKER_LANGUAGE C)
 # only offer install option if they compiled with release mode
 if(CMAKE_BUILD_TYPE MATCHES "RELEASE")
 	# adds the 'make install' targets to copy the shared library to /usr/local/lib/ directory
-	install( TARGETS linenoise DESTINATION ${CMAKE_INSTALL_LIBDIR} )
+	install(TARGETS linenoise DESTINATION ${CMAKE_INSTALL_LIBDIR} )
 	# adds all the relevant headers to /usr/local/include/gphoto2pp when ``make install`` is executed
-	install( FILES ${LINENOISE_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/linenoise )
-
+	install(FILES ${LINENOISE_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/linenoise )
 	# install the pkg-config config to system folder
-	install(FILES ${CMAKE_BINARY_DIR}/linenoise.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+#	install(FILES ${CMAKE_BINARY_DIR}/linenoise.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 endif(CMAKE_BUILD_TYPE MATCHES "RELEASE")
 
 add_executable(example example.c)
