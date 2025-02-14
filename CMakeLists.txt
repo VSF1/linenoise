@@ -1,9 +1,14 @@
 cmake_minimum_required (VERSION 3.5)
 project (LINENOISE DESCRIPTION "A shell library")
-enable_testing()
+
+# Configuration specific to being the main project
+if(PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME)
+    set(CMAKE_VERBOSE_MAKEFILE ON)
+    set(LINENOISE_NOT_SUBPROJECT ON)
+endif(PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME)
 
 if(CMAKE_BUILD_TYPE)
-    message("Building ${CMAKE_BUILD_TYPE} build.")
+    message("Building ${PROJECT_NAME} in ${CMAKE_BUILD_TYPE} build.")
 elseif(NOT CMAKE_BUILD_TYPE)
     message(FATAL_ERROR "No build type specified. Use -DCMAKE_BUILD_TYPE=[DEBUG|RELEASE] to specify.")
 endif(CMAKE_BUILD_TYPE)
@@ -37,14 +42,14 @@ set_target_properties(linenoise PROPERTIES LINKER_LANGUAGE C)
 # configure_file(linenoise.pc.in linenoise.pc @ONLY)
 
 # only offer install option if they compiled with release mode
-if(CMAKE_BUILD_TYPE MATCHES "RELEASE")
+if(CMAKE_BUILD_TYPE MATCHES "^(RELEASE|Release)")
 	# adds the 'make install' targets to copy the shared library to /usr/local/lib/ directory
 	install(TARGETS linenoise DESTINATION ${CMAKE_INSTALL_LIBDIR} )
 	# adds all the relevant headers to /usr/local/include/gphoto2pp when ``make install`` is executed
 	install(FILES ${LINENOISE_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/linenoise )
 	# install the pkg-config config to system folder
 #	install(FILES ${CMAKE_BINARY_DIR}/linenoise.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
-endif(CMAKE_BUILD_TYPE MATCHES "RELEASE")
+endif(CMAKE_BUILD_TYPE MATCHES "^(RELEASE|Release)")
 
 add_executable(example example.c)
 target_link_libraries(example linenoise)
