@@ -13,6 +13,9 @@ elseif(NOT CMAKE_BUILD_TYPE)
     message(FATAL_ERROR "No build type specified. Use -DCMAKE_BUILD_TYPE=[DEBUG|RELEASE] to specify.")
 endif(CMAKE_BUILD_TYPE)
 
+option(LINENOISE_BUILD_EXAMPLES "Build examples" OFF)
+option(LINENOISE_BUILD_TESTS "Build unit tests" OFF)
+
 # set the version of our library
 # MAJOR, is significant breaking changes, MINOR, is when we might have changed signatures of existing functions, PATCH, is just bug fixes and no breaking changes
 set(LINENOISE_VERSION_MAJOR 1)
@@ -51,11 +54,13 @@ if(CMAKE_BUILD_TYPE MATCHES "^(RELEASE|Release)")
 #	install(FILES ${CMAKE_BINARY_DIR}/linenoise.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 endif(CMAKE_BUILD_TYPE MATCHES "^(RELEASE|Release)")
 
-if (OPT_BUILD_EXAMPLES)
+if(LINENOISE_BUILD_EXAMPLES)
+    message(STATUS "Building examples")
     add_executable(example example.c)
     target_link_libraries(example linenoise)
-endif (OPT_BUILD_EXAMPLES)
+endif(LINENOISE_BUILD_EXAMPLES)
 
-if (OPT_BUILD_TESTS)
+if(LINENOISE_BUILD_TESTS)
+    message(STATUS "Building tests")
     add_subdirectory(test)
-endif (OPT_BUILD_TESTS)
+endif(LINENOISE_BUILD_TESTS)
