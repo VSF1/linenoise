@@ -51,7 +51,7 @@ if(CMAKE_BUILD_TYPE MATCHES "^(RELEASE|Release)")
 	# adds all the relevant headers to /usr/local/include/gphoto2pp when ``make install`` is executed
 	install(FILES ${LINENOISE_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/linenoise )
 	# install the pkg-config config to system folder
-#	install(FILES ${CMAKE_BINARY_DIR}/linenoise.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+	install(FILES ${CMAKE_BINARY_DIR}/linenoise.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 endif(CMAKE_BUILD_TYPE MATCHES "^(RELEASE|Release)")
 
 if(LINENOISE_BUILD_EXAMPLES)
